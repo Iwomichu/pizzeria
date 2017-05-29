@@ -1,20 +1,9 @@
-"use strict";
-
-//deps
-
-var server = require("../dist/server.js");
 var express = require("express");
-var http = require("http");
-
-//config
 
 var httpPort = 8080;
-var app = server.Server.bootstrap().app;
-app.set("port", httpPort);
-var httpServer = http.createClient(app);
 
-//list
+var app = require("./../dist/app");
 
-httpServer.listen(httpPort, function(){
-    console.log("App is running on port no. %s", httpPort);
+app.listen(httpPort, function(){
+    console.log("I'm listening on %s", httpPort);
 });

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc",
-    "poststart": "node www.js"
+    "poststart": "node ./bin/www.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "@types/express": "^4.0.35",
     "@types/node": "^7.0.22",
     "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "grunt": "^1.0.1",
