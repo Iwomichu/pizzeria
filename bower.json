@@ -1,0 +1,18 @@
+{
+  "name": "pizzeria",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Michal Juralowicz <michal.juralowicz@outlook.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Iwomichu/pizzeria",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

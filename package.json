@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "cpx ./bower_components/bootstrap/dist/css/bootstrap.min.css ./public/bootstrap/ && cpx ./bower_components/bootstrap/dist/js/bootstrap.min.js ./public/bootstrap/ && cpx ./bower_components/jquery/dist/jquery.min.js ./public/jquery/",
     "start": "tsc",
     "poststart": "node ./bin/www.js"
   },
@@ -15,14 +16,15 @@
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
+    "cpx": "^1.5.0",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.10",
     "hbs": "^4.0.1",
     "typescript": "^2.3.3"
   },
-  "repository" :
-  { "type" : "git",
-     "url" : "https://github.com/Iwomichu/pizzeria"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Iwomichu/pizzeria"
   }
 }
