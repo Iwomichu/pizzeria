@@ -1,24 +1,23 @@
 {
-  "name": "pizzeria",
-  "version": "0.0.1",
-  "description": "moja pizzeria hehehexdxddx",
+  "name": "niedtrain",
+  "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc",
+    "poststart": "node www.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "pizzeria"
-  },
-  "author": "pat i kot",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.0.35",
     "@types/node": "^7.0.22",
     "body-parser": "^1.17.2",
-    "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-ts": "^6.0.0-beta.16",
     "handlebars": "^4.0.10",
     "hbs": "^4.0.1",
     "typescript": "^2.3.3"
