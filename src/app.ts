@@ -10,6 +10,7 @@ import {indexRouter} from "./routers/index";
 import {router as productsRouter} from "./routers/products";
 import {router as contactRouter} from "./routers/contact";
 import {router as aboutRouter} from "./routers/about";
+import {router as registerRouter} from "./routers/register";
 import {router as errorRequest} from "./routers/errorRequest";
 
 app.engine("handlebars", handlebars({defaultLayout:"layout"}))
@@ -22,6 +23,7 @@ app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/contact", contactRouter);
 app.use("/about", aboutRouter);
+app.use("/register", registerRouter);
 app.use("", errorRequest);
 
 module.exports = app;
