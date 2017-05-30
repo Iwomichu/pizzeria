@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var handlebars = require("express-handlebars");
+var hbs = require("hbs");
 var app = express();
 var index_1 = require("./routers/index");
 var products_1 = require("./routers/products");
 var errorRequest_1 = require("./routers/errorRequest");
+app.engine("handlebars", handlebars({ defaultLayout: "layout" }));
+app.set("view engine", "handlebars");
+hbs.registerPartials(__dirname + "/../views/partials");
 app.use("/", index_1.indexRouter);
 app.use("/products", products_1.router);
 app.use("", errorRequest_1.router);
+app.use(express.static("public"));
 module.exports = app;
