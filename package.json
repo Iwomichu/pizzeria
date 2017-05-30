@@ -27,5 +27,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Iwomichu/pizzeria"
+  },
+  "dependencies": {
+    "@types/mongodb": "^2.2.2"
   }
 }
