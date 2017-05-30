@@ -1,6 +1,10 @@
 import * as express from "express";
+import * as fs from "fs";
+import {StringDecoder} from "string_decoder";
 
 let router:express.Router = express.Router();
+let decoder:any = new StringDecoder();
+
 
 router.all("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
     console.log("Someone is accessing our products");
@@ -9,7 +13,13 @@ router.all("/", (req:express.Request, res:express.Response, next:express.NextFun
 
 router.get("/", (req:express.Request, res:express.Response)=>{
     console.log("Products site");
-    res.status(200).send("Products site. ;>");
+
+    let content:Buffer = fs.readFileSync("./data/sample.json");
+
+    let jsonContent:JSON = JSON.parse(decoder.write(content));
+    console.log(jsonContent);
+
+    res.render("products", jsonContent);
 });
 
 router.get("/all", (req:express.Request, res:express.Response)=>{

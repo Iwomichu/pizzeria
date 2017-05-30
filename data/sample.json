@@ -1,0 +1,22 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Pizza",
+            "category": "Classic",
+            "price": 19.99
+        },
+        {
+            "id": 2,
+            "name": "Kebab",
+            "category": "Turcja",
+            "price": 12.99
+        },
+        {
+            "id": 3,
+            "name": "Rollo",
+            "category": "Extended",
+            "price": 8.99
+        }
+    ]
+}
