@@ -1,5 +1,4 @@
 import * as express from "express";
-const pool = require("../db.js");
 
 let indexRouter: express.Router = express.Router();
 

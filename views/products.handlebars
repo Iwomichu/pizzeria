@@ -1,0 +1,24 @@
+<table class="table">
+    <tr>
+        <th>
+            Lp.
+        </th>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Kategoria
+        </th>
+        <th>
+            Cena
+        </th>
+    </tr>
+    {{#each products}}
+    <tr>
+        <td> {{id}}</td>
+        <td> {{name}} </td>
+        <td> {{category}} </td>
+        <td> {{price}} </td>
+    </tr>
+    {{/each}}
+</table>

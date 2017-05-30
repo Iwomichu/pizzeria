@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var pool = require("../db.js");
 var indexRouter = express.Router();
 exports.indexRouter = indexRouter;
 indexRouter.get("/", function (req, res) {
