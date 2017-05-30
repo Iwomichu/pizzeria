@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cpx ./bower_components/bootstrap/dist/css/bootstrap.min.css ./public/bootstrap/ && cpx ./bower_components/bootstrap/dist/js/bootstrap.min.js ./public/bootstrap/ && cpx ./bower_components/jquery/dist/jquery.min.js ./public/jquery/",
     "start": "tsc",
     "poststart": "node ./bin/www.js"
   },
