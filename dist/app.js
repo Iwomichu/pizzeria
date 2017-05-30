@@ -13,5 +13,5 @@ hbs.registerPartials(__dirname + "/../views/partials");
 app.use("/", index_1.indexRouter);
 app.use("/products", products_1.router);
 app.use("", errorRequest_1.router);
-app.use(express.static("public"));
+app.use(express.static("/public"));
 module.exports = app;

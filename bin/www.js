@@ -1,6 +1,6 @@
 var express = require("express");
 
-var httpPort = 8080;
+var httpPort = 3000;
 
 var app = require("./../dist/app");
 
