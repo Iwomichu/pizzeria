@@ -4,6 +4,8 @@ var express = require("express");
 var app = express();
 var index_1 = require("./routers/index");
 var products_1 = require("./routers/products");
+var errorRequest_1 = require("./routers/errorRequest");
 app.use("/", index_1.indexRouter);
 app.use("/products", products_1.router);
+app.use("", errorRequest_1.router);
 module.exports = app;
