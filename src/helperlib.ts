@@ -2,13 +2,14 @@ import * as handlebars from "handlebars";
 import * as htmlpdf from "html-pdf";
 import * as nodemailer from "nodemailer";
 import * as fs from "fs-extra";
+import * as path from "path";
 
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./mail";
 
 export class Helper {
     public static SendMenu = function (jsonRaw: JSON, email: string): void {
-        fs.readFile("./views/sandbox.handlebars", "utf-8").then(data => {
+        fs.readFile(path.join(".", "views", "sandbox.handlebars"), "utf-8").then(data => {
             Helper.CompileTemplate(data).then(template => {
                 Helper.Merge(template, jsonRaw).then(templateReady => {
                     console.log(templateReady);
@@ -19,8 +20,8 @@ export class Helper {
                         let mailOptions = {
                             from: '"Pizzeria Penis" <lol@wp.pl>',
                             to: "michal.juralowicz@gmail.com",
-                            subject: "OH HELLO THERE",
-                            text: "WELP",
+                            subject: "ADMINISTRACJA SKSZYNKI POCZTOWEJ",
+                            text: "kutas",
                             attachments: [
                                 {
                                     filename: "faktura.pdf",
@@ -37,7 +38,7 @@ export class Helper {
                     });
                 });
             });
-        });
+        }).catch();
 
     };
     public static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
