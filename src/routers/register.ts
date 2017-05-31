@@ -11,9 +11,9 @@ router.get("/", (req:express.Request, res:express.Response, next:express.NextFun
 
 router.post("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
     console.log("Accessing register page");
-    //console.log(req.body);
+    console.log(req.body);
     //var user = new User(req.body);
-    //connection("insertOne", "users", req.body, console.log);
+    connection("insertOne", "users", req.body, console.log);
     res.send(req.body);
 });
 export {router};

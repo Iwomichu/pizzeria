@@ -11,20 +11,22 @@ import { MongoClient } from "mongodb";
 // });
 //});
 
-function methodError(err :Error, result :object, callback :Function) {
+function methodError(err :Error, result :object,db :any, callback :Function) {
     if(err)return console.error(err);
     callback(result);
+    db.close();
 }
+
 function connection(methodName: string, collection: string, document: object = {}, callback : Function = ()=>{}) {
-    MongoClient.connect("mongodb://Ajwo:iylijad10%40(DNWMU1997@cluster0-shard-00-00-j4fm3.mongodb.net:27017,cluster0-shard-00-01-j4fm3.mongodb.net:27017,cluster0-shard-00-02-j4fm3.mongodb.net:27017/pizzeria-dev?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin", function (err, db) {
+    MongoClient.connect("mongodb://localhost:27017/pizzeria", function (err, db) {
         if (err) throw err;
         console.log("hello from the databaseee");
         switch (methodName) {
             case "insertOne":
-                db.collection(collection).insertOne(document, (err, result)=>{methodError(err, result, callback)});
+            console.log(document);
+                db.collection(collection).insertOne(document, (err, result)=>{methodError(err, result, db, callback)});
                 break;
         }
-        db.close();
     });
 }
 

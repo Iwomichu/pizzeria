@@ -1,9 +1,10 @@
 import * as express from "express";
+import * as bodyParser from "body-parser";
+
 const handlebars = require("express-handlebars");
 const hbs = require("hbs");
 
 let app:express.Application = express();
-
 
 import {indexRouter} from "./routers/index";
 import {router as productsRouter} from "./routers/products";
@@ -12,6 +13,11 @@ import {router as aboutRouter} from "./routers/about";
 import {router as registerRouter} from "./routers/register";
 import {router as sandboxRouter} from "./routers/sandbox";
 import {router as errorRequest} from "./routers/errorRequest";
+
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 app.engine("handlebars", handlebars({defaultLayout:"layout"}))
 app.set("view engine", "handlebars");
