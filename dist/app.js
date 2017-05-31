@@ -20,5 +20,5 @@ app.use("/products", products_1.router);
 app.use("/contact", contact_1.router);
 app.use("/about", about_1.router);
 app.use("/register", register_1.router);
-app.use("", errorRequest_1.router);
+app.use("/*", errorRequest_1.router);
 module.exports = app;

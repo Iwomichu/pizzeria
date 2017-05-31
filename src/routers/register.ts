@@ -1,4 +1,6 @@
 import * as express from "express";
+import {connection} from "./../db"
+import {User} from "./../database/models/User"
 
 let router: express.Router = express.Router();
 
@@ -7,4 +9,11 @@ router.get("/", (req:express.Request, res:express.Response, next:express.NextFun
     res.render("register");
 });
 
+router.post("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
+    console.log("Accessing register page");
+    //console.log(req.body);
+    //var user = new User(req.body);
+    //connection("insertOne", "users", req.body, console.log);
+    res.send(req.body);
+});
 export {router};

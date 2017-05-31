@@ -1,5 +1,4 @@
 import * as express from "express";
-
 const handlebars = require("express-handlebars");
 const hbs = require("hbs");
 
@@ -24,6 +23,6 @@ app.use("/products", productsRouter);
 app.use("/contact", contactRouter);
 app.use("/about", aboutRouter);
 app.use("/register", registerRouter);
-app.use("", errorRequest);
+app.use("/*", errorRequest);
 
 module.exports = app;
