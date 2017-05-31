@@ -2,5 +2,6 @@ dist/
 node_modules/
 bower_components/
 public/
+.idea/
 npm-debug.log
 npm-debug.log.*
