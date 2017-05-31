@@ -11,9 +11,12 @@ router.get("/", (req:express.Request, res:express.Response, next:express.NextFun
 
 router.post("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
     console.log("Accessing register page");
-    console.log(req.body);
-    //var user = new User(req.body);
-    DatabaseCommunication.connect("users", req.body);
+    
+   DatabaseCommunication.connect()
+        .then((db) => {DatabaseCommunication.insertOne(db, "users", req.body)
+            .then((db) => {DatabaseCommunication.dbClose(db)})
+            })
+        .catch((err) => {console.error(err)});
     res.send(req.body);
 });
 export {router};
