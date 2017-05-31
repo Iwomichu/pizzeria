@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var bodyParser = require("body-parser");
-var handlebars = require("express-handlebars");
-var hbs = require("hbs");
-var app = express();
-var index_1 = require("./routers/index");
-var products_1 = require("./routers/products");
-var contact_1 = require("./routers/contact");
-var about_1 = require("./routers/about");
-var register_1 = require("./routers/register");
-var sandbox_1 = require("./routers/sandbox");
-var errorRequest_1 = require("./routers/errorRequest");
+const express = require("express");
+const bodyParser = require("body-parser");
+const handlebars = require("express-handlebars");
+const hbs = require("hbs");
+let app = express();
+const index_1 = require("./routers/index");
+const products_1 = require("./routers/products");
+const contact_1 = require("./routers/contact");
+const about_1 = require("./routers/about");
+const register_1 = require("./routers/register");
+const sandbox_1 = require("./routers/sandbox");
+const errorRequest_1 = require("./routers/errorRequest");
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
