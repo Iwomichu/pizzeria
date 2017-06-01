@@ -44,12 +44,12 @@ export class Helper {
         }).catch();
 
     };
-    public static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
+    private static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
         return new Promise<HandlebarsTemplateDelegate>(resolve => {
             resolve(handlebars.compile(data));
         });
     };
-    public static Merge = function (template: HandlebarsTemplateDelegate, jsondata: JSON): Promise<string> {
+    private static Merge = function (template: HandlebarsTemplateDelegate, jsondata: JSON): Promise<string> {
         return new Promise<string>(resolve => {
             resolve(template(jsondata));
         })
