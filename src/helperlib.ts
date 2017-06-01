@@ -2,20 +2,21 @@ import * as handlebars from "handlebars";
 import * as htmlpdf from "html-pdf";
 import * as nodemailer from "nodemailer";
 import * as fs from "fs-extra";
+import * as path from "path";
 
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./mail";
 
 export class Helper {
     public static SendMenu = function (jsonRaw: JSON, email: string): void {
-        fs.readFile("./views/sandbox.handlebars", "utf-8").then(data => {
+        fs.readFile(path.join(".", "views", "sandbox.handlebars"), "utf-8").then(data => {
             Helper.CompileTemplate(data).then(template => {
                 Helper.Merge(template, jsonRaw).then(templateReady => {
                     console.log(templateReady);
                     fs.writeFile("test.html", templateReady, function (err) {
                         if (err) return console.log(err);
                     });
-                    let helper = htmlpdf.create(templateReady, { format: "Letter" }).toBuffer((err, buffer) => {
+                    let helper = htmlpdf.create(templateReady, { format: "A4" }).toBuffer((err, buffer) => {
                         let mailOptions = {
                             from: '"Pizzeria Penis" <lol@wp.pl>',
                             to: "michal.juralowicz@gmail.com",

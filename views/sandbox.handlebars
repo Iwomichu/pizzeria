@@ -1,8 +1,35 @@
-<h1> Sample pdf </h1>
-<p> OH HELLO THERE </p>
-<h3> TAKE A LOOK AT OUR PRODUCTS </h3>
-<ol>
-    {{#each products}}
-    <li>{{name}} / {{price}}
-    {{/each}}
-</ol>
+<!DOCTYPE html>
+    <head>
+        <style>
+            *{
+                font-size: 5.76mm;
+            }
+            .col-1{
+                width:10%;
+            }
+            .col-2{
+                width:20%;
+            }
+            .col-3{
+                width:30%;
+            }
+            .col-4{
+                width:40%;
+            }
+            .col-5{
+                width:50%;
+            }
+            body{
+                height: 297mm;
+                width: 210mm;
+            }
+            .container{
+                margin: 2cm 2cm 2cm 2cm;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img src="img.jpg" />
+        </div>
+    </body>
