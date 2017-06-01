@@ -10,6 +10,7 @@ const products_1 = require("./routers/products");
 const contact_1 = require("./routers/contact");
 const about_1 = require("./routers/about");
 const register_1 = require("./routers/register");
+const login_1 = require("./routers/login");
 const sandbox_1 = require("./routers/sandbox");
 const errorRequest_1 = require("./routers/errorRequest");
 app.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -26,6 +27,7 @@ app.use("/products", products_1.router);
 app.use("/contact", contact_1.router);
 app.use("/about", about_1.router);
 app.use("/register", register_1.router);
+app.use("/login", login_1.router);
 app.use("/sandbox", sandbox_1.router);
 app.use("/*", errorRequest_1.router);
 module.exports = app;
