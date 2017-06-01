@@ -20,8 +20,8 @@ export class Helper {
                         let mailOptions = {
                             from: '"Pizzeria Penis" <lol@wp.pl>',
                             to: "michal.juralowicz@gmail.com",
-                            subject: "OH HELLO THERE",
-                            text: "WELP",
+                            subject: "ADMINISTRACJA SKSZYNKI POCZTOWEJ",
+                            text: "kutas",
                             attachments: [
                                 {
                                     filename: "faktura.pdf",
@@ -38,7 +38,7 @@ export class Helper {
                     });
                 });
             });
-        });
+        }).catch();
 
     };
     public static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {

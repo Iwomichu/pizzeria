@@ -38,6 +38,7 @@
     "url": "https://github.com/Iwomichu/pizzeria"
   },
   "dependencies": {
+    "@types/body-parser": "^1.16.3",
     "@types/mongodb": "^2.2.2"
   }
 }

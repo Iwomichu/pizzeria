@@ -1,24 +1,30 @@
-import {MongoClient} from "mongodb";
+import { MongoClient } from "mongodb";
 
-//MongoClient.connect("mongodb://Ajwo:iylijad10@(DNWMU1997@cluster0-shard-00-00-j4fm3.mongodb.net:27017,cluster0-shard-00-01-j4fm3.mongodb.net:27017,cluster0-shard-00-02-j4fm3.mongodb.net:27017/pizzeria-dev?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin", function(err, db){
-    //console.log("hello from the databaseee");
-    //db.close();
-    // if(err) throw err;
+export class DatabaseCommunication {
+    
+    public static connect = function(): Promise<DatabaseCommunication>{
+        return new Promise<DatabaseCommunication>(
+            (resolve, reject) => {
+                resolve(MongoClient.connect("mongodb://localhost:27017/pizzeria"));
+            }
+        );
+    }
+    
+    public static insertOne = function(db: any, collection: string, document: object): Promise<DatabaseCommunication> {
+            return new Promise<DatabaseCommunication>(
+                (resolve, reject) => {
+                    db.collection(collection).insertOne(document);
+                    resolve(db);
+                        //if(err)reject(); return new Promise<DatabaseCommunication>(()=>{resolve(result)})}));
+                }
+            );
+    }
 
-    // db.collection("pizzeria").find().toArray(function(err, result){
-    //     if(err) throw err;
-    //     console.log(result);
-    // });
-//});
-
-
-MongoClient.connect("mongodb://Ajwo:iylijad10%40(DNWMU1997@cluster0-shard-00-00-j4fm3.mongodb.net:27017,cluster0-shard-00-01-j4fm3.mongodb.net:27017,cluster0-shard-00-02-j4fm3.mongodb.net:27017/pizzeria-dev?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin", function(err, db) {
-    if(err) throw err;
-    console.log("hello from the databaseee");
-
-    db.collection("pizzeria").find().toArray(function(err, result){
-        if(err) throw err;
-        console.log("Test:", result);
-    });
-    db.close();
-  });
+     public static dbClose = function(db: any): Promise<DatabaseCommunication> {
+            return new Promise<DatabaseCommunication>(
+                (resolve, reject)=> {
+                    resolve(db.close());
+                }
+            );
+    }
+}

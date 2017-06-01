@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const bodyParser = require("body-parser");
 const handlebars = require("express-handlebars");
 const hbs = require("hbs");
 let app = express();
@@ -11,6 +12,10 @@ const about_1 = require("./routers/about");
 const register_1 = require("./routers/register");
 const sandbox_1 = require("./routers/sandbox");
 const errorRequest_1 = require("./routers/errorRequest");
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.engine("handlebars", handlebars({ defaultLayout: "layout" }));
 app.set("view engine", "handlebars");
 hbs.registerPartials(__dirname + "/../views/partials");
@@ -22,5 +27,5 @@ app.use("/contact", contact_1.router);
 app.use("/about", about_1.router);
 app.use("/register", register_1.router);
 app.use("/sandbox", sandbox_1.router);
-app.use("", errorRequest_1.router);
+app.use("/*", errorRequest_1.router);
 module.exports = app;

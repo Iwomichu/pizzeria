@@ -12,4 +12,5 @@ export class User{
     // address: number;
     // flat: number;
     // phone: string;
+    constructor({}){}
 }
