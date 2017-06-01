@@ -4,6 +4,6 @@ const express = require("express");
 let router = express.Router();
 exports.router = router;
 router.use("*", (req, res) => {
-    console.log("404 response");
+    console.log("404 response, \"%s\" page not found", req.baseUrl);
     res.status(404).send("404 <br/> No page found.");
 });
