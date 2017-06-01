@@ -13,9 +13,8 @@ let decoder:any = new StringDecoder();
 
 router.get("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
 
-    let content:void = fs.readFile("./data/sample.json", (err, jsondata)=>{
+    let content:void = fs.readFile("./data/faktura.json", (err, jsondata)=>{
         let jsonContent:JSON = JSON.parse(decoder.write(jsondata));
-        console.log(jsonContent);
         Helper.SendMenu(jsonContent, "michal.juralowicz@gmail.com");
     });
 

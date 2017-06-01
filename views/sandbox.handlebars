@@ -1,35 +1,256 @@
 <!DOCTYPE html>
-    <head>
-        <style>
-            *{
+
+<head>
+    <title>Faktura</title>
+    <meta charset="utf-8">
+</head>
+<style>
+    * {
+        /*
                 font-size: 5.76mm;
-            }
-            .col-1{
-                width:10%;
-            }
-            .col-2{
-                width:20%;
-            }
-            .col-3{
-                width:30%;
-            }
-            .col-4{
-                width:40%;
-            }
-            .col-5{
-                width:50%;
-            }
-            body{
-                height: 297mm;
-                width: 210mm;
-            }
-            .container{
-                margin: 2cm 2cm 2cm 2cm;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <img src="img.jpg" />
+                */
+    }
+
+    .row {
+        width: 100%;
+        min-height: 6mm;
+        height: auto;
+    }
+
+    .col {
+        float: left;
+        min-height: 6mm;
+        height: auto;
+    }
+
+    .col-1 {
+        width: 10%;
+    }
+
+    .col-2 {
+        width: 20%;
+    }
+
+    .col-3 {
+        width: 30%;
+    }
+
+    .col-4 {
+        width: 40%;
+    }
+
+    .col-5 {
+        width: 50%;
+    }
+
+    .col-6 {
+        width: 60%;
+    }
+
+    .col-7 {
+        width: 70%;
+    }
+
+    .col-clear {
+        clear: both;
+    }
+
+    .td-1 {
+        width: 8.3%;
+    }
+
+    .td-2 {
+        width: 16.6%;
+    }
+
+    .td-3 {
+        width: 24.9%;
+    }
+
+    body {}
+
+    .container {
+        margin: 2cm 2cm 2cm 2cm;
+        width: 170mm;
+        height: 257mm;
+        font-size: 9pt;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .red {
+        background-color: red;
+    }
+
+    .blue {
+        background-color: blue;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .info {
+        font-size: 8pt;
+        line-height: 10pt;
+        margin: 0;
+    }
+
+    .info p {
+        margin: 0;
+    }
+
+    table, th, td{
+        border: 1pt solid black;
+        border-collapse: collapse;
+    }
+
+    div.info td, div.info tr, div.info table{
+        border-color: white;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 0;
+    }
+
+    .space {
+        height: 30pt;
+    }
+
+    .list {
+        font-size: 8pt;
+    }
+
+    .part {
+        margin: 0 0 30pt 0;
+    }
+    img{
+        width: 100%;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <h4>Przykładowa faktura</h4>
+        <!--<div class="row">
+            <div class="col col-1 red"></div>
+            <div class="col col-1 blue"></div>
+            <div class="col col-1 red"></div>
+            <div class="col col-1 blue"></div>
+            <div class="col col-1 red"></div>
+            <div class="col col-1 blue"></div>
+            <div class="col col-1 red"></div>
+            <div class="col col-1 blue"></div>
+            <div class="col col-1 red"></div>
+            <div class="col col-1 blue"></div>
+        </div> -->
+        <div class="row part">
+            <div class="col col-4">
+                <img src="http://www.uprp.pl/uprp/_gAllery/40/54/40542/1_P_logo_UPRP_pl.png" />
+            </div>
+            <div class="col col-3">
+                <div class="row text-center">
+                    FAKTURA VAT
+                </div>
+                <div class="row text-center">
+                    nr 2/15
+                </div>
+            </div>
+            <div class="col col-3 info">
+                <table>
+                    <tr>
+                        <td> Miejsce wystawienia </td>
+                        <td class="text-right"> {{info.miejsce}} </td>
+                    </tr>
+                    <tr>
+                        <td> Data wystawienia </td>
+                        <td class="text-right"> {{info.dataWys}} </td>
+                    </tr>
+                    <tr>
+                        <td> Data sprzedaży </td>
+                        <td class="text-right"> {{info.dataSpr}} </td>
+                    </tr>
+                    <tr>
+                        <td> &nbsp; </td>
+                        <td> &nbsp; </td>
+                    </tr>
+                    <tr>
+                        <td> Sposób zapłaty </td>
+                        <td class="text-right"> {{info.zaplata}} </td>
+                    </tr>
+                    <tr>
+                        <td> Termin zapłaty </td>
+                        <td class="text-right"> {{info.termin}} </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="col-clear"></div>
         </div>
-    </body>
+        <div class="row info">
+            <div class="col col-4">Sprzedawca</div>
+            <div class="col col-2"></div>
+            <div class="col col-4">Nabywca</div>
+            <div class="col-clear"></div>
+        </div>
+        <div class="row info part">
+            <div class="col col-4">
+                <p>{{sprzedawca.nazwa}} </p>
+                <p>{{sprzedawca.adres}}</p>
+                <p>{{sprzedawca.zip}}</p>
+                <p>{{sprzedawca.nip}}</p>
+                <p>{{sprzedawca.nrkonta}}</p>
+            </div>
+            <div class="col col-2"> </div>
+            <div class="col col-4">
+                <p>{{nabywca.nazwa}} </p>
+                <p>{{nabywca.adres}}</p>
+                <p>{{nabywca.zip}}</p>
+                <p>{{nabywca.nip}}</p>
+            </div>
+            <div class="col-clear"></div>
+        </div>
+        <div class="row part list text-center">
+            <table>
+                <tr>
+                    <td class="td-1"> Poz. faktury VAT</td>
+                    <td class="td-3"> Nazwa towaru / usługi </td>
+                    <td class="td-1"> Symbol PKWIU/PKOB </td>
+                    <td class="td-1"> Jm </td>
+                    <td class="td-1"> Ilość </td>
+                    <td class="td-1"> Cena jednostkowa netto</td>
+                    <td class="td-1"> Wartość netto </td>
+                    <td class="td-1"> Stawka VAT </td>
+                    <td class="td-1"> Kwota VAT </td>
+                    <td class="td-1"> Wartość brutto </td>
+                </tr>
+                {{#each przedmioty}}
+                <tr>
+                    <td class="td-1"> {{nr}}</td>
+                    <td class="td-3"> {{nazwa}} </td>
+                    <td class="td-1"> {{symbol}} </td>
+                    <td class="td-1"> {{jm}} </td>
+                    <td class="td-1"> {{ilosc}} </td>
+                    <td class="td-1"> {{cenajedn}} </td>
+                    <td class="td-1"> Wartość netto </td>
+                    <td class="td-1"> {{vat}} </td>
+                    <td class="td-1"> Kwota VAT </td>
+                    <td class="td-1"> Wartość brutto </td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+</body>

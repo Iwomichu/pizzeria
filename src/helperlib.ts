@@ -12,16 +12,19 @@ export class Helper {
         fs.readFile(path.join(".", "views", "sandbox.handlebars"), "utf-8").then(data => {
             Helper.CompileTemplate(data).then(template => {
                 Helper.Merge(template, jsonRaw).then(templateReady => {
-                    console.log(templateReady);
-                    fs.writeFile("test.html", templateReady, function (err) {
-                        if (err) return console.log(err);
-                    });
-                    let helper = htmlpdf.create(templateReady, { format: "A4" }).toBuffer((err, buffer) => {
+                    //console.log(templateReady);
+                    // fs.writeFile("test.html", templateReady, function (err) {
+                    //     if (err) return console.log(err);
+                    // });
+                    
+                    let helper = htmlpdf.create(templateReady, { height: "297mm", width: "210mm"}).toBuffer((err, buffer) => {
+                        
+                        // MAIL
                         let mailOptions = {
                             from: '"Pizzeria Penis" <lol@wp.pl>',
                             to: "michal.juralowicz@gmail.com",
-                            subject: "ADMINISTRACJA SKSZYNKI POCZTOWEJ",
-                            text: "kutas",
+                            subject: "Test Nodemailer",
+                            text: "sample text",
                             attachments: [
                                 {
                                     filename: "faktura.pdf",
@@ -35,6 +38,16 @@ export class Helper {
                             if (err) console.log(err);
                             console.log("Message %s sent %s", info.messageId, info.response);
                         });
+
+                        //ZAPIS DO PLIKU
+                        // try{
+                        //     fs.writeFileSync("wynik.pdf", buffer, {encoding: "utf-8"});
+                        //     console.log("Pdf saved");
+                        // }
+                        // catch(err){
+                        //     console.log(err);
+                        // }
+                        
                     });
                 });
             });

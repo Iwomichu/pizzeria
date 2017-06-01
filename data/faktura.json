@@ -1,0 +1,34 @@
+{
+    "nr": "2/15",
+    "info":{
+        "miejsce": "Słupsk",
+        "dataWys": "2015-02-18",
+        "dataSpr": "2015-02-18",
+        "zaplata": "przelew",
+        "termin": "2015-03-04"
+    },
+    "sprzedawca":{
+        "nazwa": "Witkac sp. z o.o.",
+        "adres": "ul. Żeromskiego 11/6",
+        "zip": "76-200 Słipsk",
+        "nip": "839-31-72-913",
+        "nrkonta": "42 1140 2004 0000 3502 7477 8440"
+    },
+    "nabywca":{
+        "nazwa": "Gmina i Miasto Czerwionka-Leszczyny",
+        "adres": "ul. Żeromskiego 11/6",
+        "zip": "76-200 Słipsk",
+        "nip": "839-31-72-913"
+    },
+    "przedmioty":[
+        {
+            "nr": 1,
+            "nazwa": "Szkolenie z zakresu korzystania z systemu witkac.pl zgodnie z umową RGiM/P30/2",
+            "symbol": "80.59B",
+            "jm": "usługa",
+            "ilosc": 1,
+            "cenajedn": 570,
+            "vat": 23
+        }
+    ]
+}
