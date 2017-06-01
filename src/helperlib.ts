@@ -38,16 +38,6 @@ export class Helper {
                             if (err) console.log(err);
                             console.log("Message %s sent %s", info.messageId, info.response);
                         });
-
-                        //ZAPIS DO PLIKU
-                        // try{
-                        //     fs.writeFileSync("wynik.pdf", buffer, {encoding: "utf-8"});
-                        //     console.log("Pdf saved");
-                        // }
-                        // catch(err){
-                        //     console.log(err);
-                        // }
-                        
                     });
                 });
             });
