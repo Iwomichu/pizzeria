@@ -3,142 +3,7 @@
 <head>
     <title>Faktura</title>
     <meta charset="utf-8">
-</head>
-<style>
-    * {
-        /*
-                font-size: 5.76mm;
-                */
-    }
-
-    .row {
-        width: 100%;
-        min-height: 6mm;
-        height: auto;
-    }
-
-    .col {
-        float: left;
-        min-height: 6mm;
-        height: auto;
-    }
-
-    .col-1 {
-        width: 10%;
-    }
-
-    .col-2 {
-        width: 20%;
-    }
-
-    .col-3 {
-        width: 30%;
-    }
-
-    .col-4 {
-        width: 40%;
-    }
-
-    .col-5 {
-        width: 50%;
-    }
-
-    .col-6 {
-        width: 60%;
-    }
-
-    .col-7 {
-        width: 70%;
-    }
-
-    .col-clear {
-        clear: both;
-    }
-
-    .td-1 {
-        width: 8.3%;
-    }
-
-    .td-2 {
-        width: 16.6%;
-    }
-
-    .td-3 {
-        width: 24.9%;
-    }
-
-    body {}
-
-    .container {
-        margin: 2cm 2cm 2cm 2cm;
-        width: 170mm;
-        height: 257mm;
-        font-size: 9pt;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .red {
-        background-color: red;
-    }
-
-    .blue {
-        background-color: blue;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .text-left {
-        text-align: left;
-    }
-
-    .text-right {
-        text-align: right;
-    }
-
-    .info {
-        font-size: 8pt;
-        line-height: 10pt;
-        margin: 0;
-    }
-
-    .info p {
-        margin: 0;
-    }
-
-    table, th, td{
-        border: 1pt solid black;
-        border-collapse: collapse;
-    }
-
-    div.info td, div.info tr, div.info table{
-        border-color: white;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    td {
-        padding: 0;
-    }
-
-    .space {
-        height: 30pt;
-    }
-
-    .list {
-        font-size: 8pt;
-    }
-
-    .part {
-        margin: 0 0 30pt 0;
-    }
-    img{
-        width: 100%;
-    }
-</style>
+    <link rel="stylesheet" href="\{{css}}" />
 </head>
 
 <body>
@@ -157,14 +22,14 @@
             <div class="col col-1 blue"></div>
         </div> -->
         <div class="row part">
-            <div class="col col-4">
-                <img src="http://www.uprp.pl/uprp/_gAllery/40/54/40542/1_P_logo_UPRP_pl.png" />
-            </div>
             <div class="col col-3">
-                <div class="row text-center">
+                <img src="\{{image}}" />
+            </div>
+            <div class="col col-4 text-center">
+                <div class="row">
                     FAKTURA VAT
                 </div>
-                <div class="row text-center">
+                <div class="row">
                     nr 2/15
                 </div>
             </div>
@@ -251,6 +116,23 @@
                 </tr>
                 {{/each}}
             </table>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col col-4">
+                <div class="row">
+                    Razem do zapłaty:
+                </div>
+                <div class="row">
+                    Słownie: 
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col col-4"> ........................................................... </div>
+            <div class="col col-2"></div>
+            <div class="col col-4"> ........................................................... </div>
         </div>
     </div>
 </body>
