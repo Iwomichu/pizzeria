@@ -3,7 +3,7 @@
 <head>
     <title>Faktura</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="\{{css}}" />
+    <link rel="stylesheet" href="file:\C:\Users\Michu\typescript-practice\pizzeria\views\pdf-style.css" />
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         </div> -->
         <div class="row part">
             <div class="col col-3">
-                <img src="\{{image}}" />
+                <img src="file:\C:\Users\Michu\typescript-practice\pizzeria\views\img.jpg" />
             </div>
             <div class="col col-4 text-center">
                 <div class="row">
@@ -37,15 +37,15 @@
                 <table>
                     <tr>
                         <td> Miejsce wystawienia </td>
-                        <td class="text-right"> {{info.miejsce}} </td>
+                        <td class="text-right"> Słupsk </td>
                     </tr>
                     <tr>
                         <td> Data wystawienia </td>
-                        <td class="text-right"> {{info.dataWys}} </td>
+                        <td class="text-right"> 2015-02-18 </td>
                     </tr>
                     <tr>
                         <td> Data sprzedaży </td>
-                        <td class="text-right"> {{info.dataSpr}} </td>
+                        <td class="text-right"> 2015-02-18 </td>
                     </tr>
                     <tr>
                         <td> &nbsp; </td>
@@ -53,11 +53,11 @@
                     </tr>
                     <tr>
                         <td> Sposób zapłaty </td>
-                        <td class="text-right"> {{info.zaplata}} </td>
+                        <td class="text-right"> przelew </td>
                     </tr>
                     <tr>
                         <td> Termin zapłaty </td>
-                        <td class="text-right"> {{info.termin}} </td>
+                        <td class="text-right"> 2015-03-04 </td>
                     </tr>
 
                 </table>
@@ -72,18 +72,18 @@
         </div>
         <div class="row info part">
             <div class="col col-4">
-                <p>{{sprzedawca.nazwa}} </p>
-                <p>{{sprzedawca.adres}}</p>
-                <p>{{sprzedawca.zip}}</p>
-                <p>{{sprzedawca.nip}}</p>
-                <p>{{sprzedawca.nrkonta}}</p>
+                <p>Witkac sp. z o.o. </p>
+                <p>ul. Żeromskiego 11/6</p>
+                <p>76-200 Słipsk</p>
+                <p>839-31-72-913</p>
+                <p>42 1140 2004 0000 3502 7477 8440</p>
             </div>
             <div class="col col-2"> </div>
             <div class="col col-4">
-                <p>{{nabywca.nazwa}} </p>
-                <p>{{nabywca.adres}}</p>
-                <p>{{nabywca.zip}}</p>
-                <p>{{nabywca.nip}}</p>
+                <p>Gmina i Miasto Czerwionka-Leszczyny </p>
+                <p>ul. Żeromskiego 11/6</p>
+                <p>76-200 Słipsk</p>
+                <p>839-31-72-913</p>
             </div>
             <div class="col-clear"></div>
         </div>
@@ -101,20 +101,18 @@
                     <td class="td-1"> Kwota VAT </td>
                     <td class="td-1"> Wartość brutto </td>
                 </tr>
-                {{#each przedmioty}}
                 <tr>
-                    <td class="td-1"> {{nr}}</td>
-                    <td class="td-3"> {{nazwa}} </td>
-                    <td class="td-1"> {{symbol}} </td>
-                    <td class="td-1"> {{jm}} </td>
-                    <td class="td-1"> {{ilosc}} </td>
-                    <td class="td-1"> {{cenajedn}} </td>
+                    <td class="td-1"> 1</td>
+                    <td class="td-3"> Szkolenie z zakresu korzystania z systemu witkac.pl zgodnie z umową RGiM/P30/2 </td>
+                    <td class="td-1"> 80.59B </td>
+                    <td class="td-1"> usługa </td>
+                    <td class="td-1"> 1 </td>
+                    <td class="td-1"> 570 </td>
                     <td class="td-1"> Wartość netto </td>
-                    <td class="td-1"> {{vat}} </td>
+                    <td class="td-1"> 23 </td>
                     <td class="td-1"> Kwota VAT </td>
                     <td class="td-1"> Wartość brutto </td>
                 </tr>
-                {{/each}}
             </table>
         </div>
         <div class="row"></div>

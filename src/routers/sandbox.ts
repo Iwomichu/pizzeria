@@ -6,7 +6,7 @@ import * as htmlpdf from "html-pdf";
 import * as nodemailer from "nodemailer";
 import {StringDecoder} from "string_decoder";
 import {transporter} from "./../mail";
-import {Helper} from "./../helperlib";
+import {PdfHelper} from "./../helperlib";
 
 let router: express.Router = express.Router();
 let decoder:any = new StringDecoder();
@@ -15,7 +15,7 @@ router.get("/", (req:express.Request, res:express.Response, next:express.NextFun
 
     let content:void = fs.readFile("./data/faktura.json", (err, jsondata)=>{
         let jsonContent:JSON = JSON.parse(decoder.write(jsondata));
-        Helper.SendMenu(jsonContent, "michal.juralowicz@gmail.com");
+        PdfHelper.SendMenu(jsonContent, "michal.juralowicz@gmail.com");
     });
 
 

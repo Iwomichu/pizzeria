@@ -1,0 +1,131 @@
+.row {
+    width: 100%;
+    min-height: 6mm;
+    height: auto;
+}
+
+.col {
+    float: left;
+    min-height: 6mm;
+    height: auto;
+}
+
+.col-1 {
+    width: 10%;
+}
+
+.col-2 {
+    width: 20%;
+}
+
+.col-3 {
+    width: 30%;
+}
+
+.col-4 {
+    width: 40%;
+}
+
+.col-5 {
+    width: 50%;
+}
+
+.col-6 {
+    width: 60%;
+}
+
+.col-7 {
+    width: 70%;
+}
+
+.col-clear {
+    clear: both;
+}
+
+.td-1 {
+    width: 8.3%;
+}
+
+.td-2 {
+    width: 16.6%;
+}
+
+.td-3 {
+    width: 24.9%;
+}
+
+.container {
+    padding: 2cm;
+    /*width: 170mm;
+    height: 257mm;*/
+    font-size: 9pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.info {
+    font-size: 8pt;
+    line-height: 10pt;
+    margin: 0;
+}
+
+.info p {
+    margin: 0;
+}
+
+table,
+th,
+td {
+    border: 1pt solid black;
+    border-collapse: collapse;
+}
+
+div.info td,
+div.info tr,
+div.info table {
+    border-color: white;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 0;
+}
+
+.space {
+    height: 30pt;
+}
+
+.list {
+    font-size: 8pt;
+    vertical-align: top;
+}
+
+.part {
+    margin: 0 0 30pt 0;
+}
+
+img {
+    width: 100%;
+}
