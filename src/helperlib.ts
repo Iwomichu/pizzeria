@@ -7,25 +7,61 @@ import * as path from "path";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./mail";
 
-export class Helper {
+interface PdfHelperOptions{
+    mainTemplateFilename? :string;
+    jsonData: JSON;
+    email: string;
+    subject?: string;
+    headerTemplateFilename?: string;
+    footerTemplateFilename?: string;
+    logoFilename?: string;
+    cssFilename?: string;
+    mailText?: string;
+    pdfFilename?: string;
+}
+
+export class PdfHelper {
+    mainTemplateFilename :string;
+    jsonData: JSON;
+    email: string;
+    subject: string;
+    headerTemplateFilename: string;
+    footerTemplateFilename: string;
+    logoFilename: string;
+    cssFilename: string;
+    mailText: string;
+    pdfFilename: string;
+
+    constructor(options: PdfHelperOptions){
+        this.mainTemplateFilename = options.mainTemplateFilename || "sandbox.handlebars";
+        this.jsonData = options.jsonData;
+        this.email = options.email;
+        this.subject = options.subject || "Faktura";
+        this.headerTemplateFilename = options.headerTemplateFilename || "header.handlebars";
+        this.footerTemplateFilename = options.footerTemplateFilename || "footer.handlebars";
+        this.logoFilename = options.logoFilename || "logo.png";
+        this.cssFilename = options.cssFilename || "pdf-style.css";
+        this.mailText = options.mailText || "";
+        this.pdfFilename = options.mailText || "faktura.pdf";
+    };
     public static SendMenu = async function (jsonRaw: JSON, email: string, subject: string = "Faktura") {
         let data: string = await fs.readFile(path.join(".", "views", "sandbox.handlebars"), "utf-8");
-        let template = await Helper.CompileTemplate(data);
-        let templateReady = await Helper.Merge(template, jsonRaw);
+        let template = await PdfHelper.CompileTemplate(data);
+        let templateReady = await PdfHelper.Merge(template, jsonRaw);
 
         let header = await fs.readFile(path.join(".", "views", "header.handlebars"), "utf-8");
-        let headerRaw = await Helper.CompileTemplate(header);
-        let headerReady = await Helper.Merge(headerRaw, jsonRaw);
+        let headerRaw = await PdfHelper.CompileTemplate(header);
+        let headerReady = await PdfHelper.Merge(headerRaw, jsonRaw);
 
         let footer = await fs.readFile(path.join(".", "views", "footer.handlebars"), "utf-8");
-        let footerRaw = await Helper.CompileTemplate(footer);
-        let footerReady = await Helper.Merge(footerRaw, jsonRaw);
+        let footerRaw = await PdfHelper.CompileTemplate(footer);
+        let footerReady = await PdfHelper.Merge(footerRaw, jsonRaw);
 
         let css = path.join(`file://`, __dirname, `../views/pdf-style.css`);
         let image = path.join(`file://`, __dirname, `../views/img.jpg`);
 
-        templateReady = await Helper.Replace(templateReady, `{{css}}`, css);
-        templateReady = await Helper.Replace(templateReady, `{{image}}`, image);
+        templateReady = await PdfHelper.Replace(templateReady, `{{css}}`, css);
+        templateReady = await PdfHelper.Replace(templateReady, `{{image}}`, image);
 
         let pdfOptions = { 
             height: "297mm", 
@@ -38,7 +74,7 @@ export class Helper {
         await fs.writeFile("faktura.html", templateReady);
 
         let helper = await htmlpdf.create(templateReady, pdfOptions);
-        let buffer: Buffer = await Helper.ToBuffer(helper);
+        let buffer: Buffer = await PdfHelper.ToBuffer(helper);
 
         let mailOptions = {
             from: '"Pizzeria Penis" <lol@wp.pl>',
@@ -53,7 +89,7 @@ export class Helper {
             ]
         };
 
-        await Helper.SendMail(mailOptions);
+        await PdfHelper.SendMail(mailOptions);
     };
     private static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
         return new Promise<HandlebarsTemplateDelegate>((resolve, reject) => {
@@ -102,5 +138,8 @@ export class Helper {
                 reject(err);
             }
         })
+    }
+    public CreatePdfHelper = function(options:PdfHelperOptions){
+        return new PdfHelper(options);
     }
 }
