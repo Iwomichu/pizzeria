@@ -11,6 +11,7 @@ import {router as productsRouter} from "./routers/products";
 import {router as contactRouter} from "./routers/contact";
 import {router as aboutRouter} from "./routers/about";
 import {router as registerRouter} from "./routers/register";
+import {router as loginRouter} from "./routers/login";
 import {router as sandboxRouter} from "./routers/sandbox";
 import {router as errorRequest} from "./routers/errorRequest";
 
@@ -30,6 +31,7 @@ app.use("/products", productsRouter);
 app.use("/contact", contactRouter);
 app.use("/about", aboutRouter);
 app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 app.use("/sandbox", sandboxRouter);
 
 app.use("/*", errorRequest);
