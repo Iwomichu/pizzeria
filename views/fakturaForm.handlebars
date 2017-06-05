@@ -1,18 +1,20 @@
-<form action="/faktura/sent" method="post" class="form">
+<form action="/faktura/sent" method="post" class="form-inline">
     <div class="form-group">
-        <input name="ismail" type="checkbox" placeholder="E-mail" />
+        <label id="ismail">Mail</label>
+        <input id="ismail" name="ismail" type="checkbox" placeholder="E-mail"/>
     </div>
+    |
     <div class="form-group">
-        <input name="ispdf" type="checkbox" placeholder="E-mail" />
+        <label id="ispdf">PDF</label>
+        <input id="ispdf" name="ispdf" type="checkbox" placeholder="E-mail"/>
     </div>
-
+    |
     <div class="form-group">
-        <input name="email" type="email" placeholder="E-mail" />
+        <input name="email" type="email" placeholder="E-mail" class="form-control" />
     </div>
-
-    
+        
     <div class="form-group">
-        <input class="btn btn-default" type="submit" />
+        <input class="btn btn-default" type="submit" class="form-control" />
     </div>
 
 </form>

@@ -6,7 +6,8 @@ import * as htmlpdf from "html-pdf";
 import * as nodemailer from "nodemailer";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./../mail";
-import * as PdfHelper from "./../helperlib";
+import {Utilities} from "./../util";
+import * as PdfHelper from "./../pdf";
 
 let router = express.Router();
 let pdf: PdfHelper.PdfHelper = PdfHelper.Create({});
@@ -18,15 +19,15 @@ router.get("/", (req, res, err) => {
 
 router.post("/sent", async (req, res, err) => {
     let content: Buffer = await fs.readFile("./data/faktura.json");
-
+    
     let jsonContent: JSON = JSON.parse(decoder.write(content));
     pdf.Pdf({
-        email: "michal.juralowicz@gmail.com",
+        email: Utilities.NormalizeMail(req.body.email),
         jsonData: jsonContent,
         mailText: "faktura",
         pdfFilename: "faktura.pdf",
-        save: true,
-        send: true,
+        save: (req.body.ispdf == 'on') ? true : false,
+        send: (req.body.ismail == 'on') ? true : false,
         subject: "Faktura"
     });
 

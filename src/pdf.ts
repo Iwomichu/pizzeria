@@ -52,6 +52,8 @@ export class PdfHelper {
         let footer = await fs.readFile(path.join(".", "views", "faktura" , this.footerTemplateFilename), "utf-8");
         let footerRaw = await this.CompileTemplate(footer);
         let footerReady = await this.Merge(footerRaw, options.jsonData);
+        
+        console.log("Read stage complete");
 
         let css = path.join(`file://`, __dirname, this.cssFilename);
         let image = path.join(`file://`, __dirname, this.logoFilename);
@@ -69,9 +71,13 @@ export class PdfHelper {
 
         let helper = await htmlpdf.create(templateReady, pdfOptions);
         let buffer: Buffer = await this.ToBuffer(helper);
+        
+        console.log("Convert stage complete");
 
         if(options.save) await this.SavePdf(buffer, options.pdfFilename);
         if(options.send) await this.Mail(options, buffer);
+        
+        console.log("Final stage complete");
     };
     private CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
         return new Promise<HandlebarsTemplateDelegate>((resolve, reject) => {

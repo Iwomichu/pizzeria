@@ -6,7 +6,7 @@ import * as htmlpdf from "html-pdf";
 import * as nodemailer from "nodemailer";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./../mail";
-import * as PdfHelper from "./../helperlib";
+import * as PdfHelper from "./../pdf";
 
 let router: express.Router = express.Router();
 let pdf: PdfHelper.PdfHelper = PdfHelper.Create({});
