@@ -7,111 +7,93 @@ import * as path from "path";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./mail";
 
-interface PdfHelperOptions{
-    mainTemplateFilename? :string;
-    jsonData: JSON;
-    email: string;
-    subject?: string;
+export interface PdfHelperConfig {
+    mainTemplateFilename?: string;
     headerTemplateFilename?: string;
     footerTemplateFilename?: string;
     logoFilename?: string;
     cssFilename?: string;
-    mailText?: string;
-    pdfFilename?: string;
 }
 
-export class PdfHelper {
-    mainTemplateFilename :string;
+export interface PdfOptions{
     jsonData: JSON;
-    email: string;
-    subject: string;
+    email?: string;
+    subject?: string;
+    mailText?: string;
+    pdfFilename: string;
+
+    send: boolean;
+    save: boolean;
+} 
+
+export class PdfHelper {
+    mainTemplateFilename: string;
     headerTemplateFilename: string;
     footerTemplateFilename: string;
     logoFilename: string;
     cssFilename: string;
-    mailText: string;
-    pdfFilename: string;
 
-    constructor(options: PdfHelperOptions){
-        this.mainTemplateFilename = options.mainTemplateFilename || "sandbox.handlebars";
-        this.jsonData = options.jsonData;
-        this.email = options.email;
-        this.subject = options.subject || "Faktura";
-        this.headerTemplateFilename = options.headerTemplateFilename || "header.handlebars";
-        this.footerTemplateFilename = options.footerTemplateFilename || "footer.handlebars";
-        this.logoFilename = options.logoFilename || "logo.png";
-        this.cssFilename = options.cssFilename || "pdf-style.css";
-        this.mailText = options.mailText || "";
-        this.pdfFilename = options.mailText || "faktura.pdf";
+    constructor(config: PdfHelperConfig) {
+        this.mainTemplateFilename = config.mainTemplateFilename || "sandbox.handlebars";
+        this.headerTemplateFilename = config.headerTemplateFilename || "header.handlebars";
+        this.footerTemplateFilename = config.footerTemplateFilename || "footer.handlebars";
+        this.logoFilename = config.logoFilename || "../views/faktura/logo.jpg";
+        this.cssFilename = config.cssFilename || "../views/faktura/pdf-style.css";
     };
-    public static SendMenu = async function (jsonRaw: JSON, email: string, subject: string = "Faktura") {
-        let data: string = await fs.readFile(path.join(".", "views", "sandbox.handlebars"), "utf-8");
-        let template = await PdfHelper.CompileTemplate(data);
-        let templateReady = await PdfHelper.Merge(template, jsonRaw);
+    public Pdf = async (options: PdfOptions) => {
+        let data: string = await fs.readFile(path.join(".", "views", "faktura" , this.mainTemplateFilename), "utf-8");
+        let template = await this.CompileTemplate(data);
+        let templateReady = await this.Merge(template, options.jsonData);
 
-        let header = await fs.readFile(path.join(".", "views", "header.handlebars"), "utf-8");
-        let headerRaw = await PdfHelper.CompileTemplate(header);
-        let headerReady = await PdfHelper.Merge(headerRaw, jsonRaw);
+        let header = await fs.readFile(path.join(".", "views", "faktura" , this.headerTemplateFilename), "utf-8");
+        let headerRaw = await this.CompileTemplate(header);
+        let headerReady = await this.Merge(headerRaw, options.jsonData);
 
-        let footer = await fs.readFile(path.join(".", "views", "footer.handlebars"), "utf-8");
-        let footerRaw = await PdfHelper.CompileTemplate(footer);
-        let footerReady = await PdfHelper.Merge(footerRaw, jsonRaw);
+        let footer = await fs.readFile(path.join(".", "views", "faktura" , this.footerTemplateFilename), "utf-8");
+        let footerRaw = await this.CompileTemplate(footer);
+        let footerReady = await this.Merge(footerRaw, options.jsonData);
 
-        let css = path.join(`file://`, __dirname, `../views/pdf-style.css`);
-        let image = path.join(`file://`, __dirname, `../views/img.jpg`);
+        let css = path.join(`file://`, __dirname, this.cssFilename);
+        let image = path.join(`file://`, __dirname, this.logoFilename);
 
-        templateReady = await PdfHelper.Replace(templateReady, `{{css}}`, css);
-        templateReady = await PdfHelper.Replace(templateReady, `{{image}}`, image);
+        templateReady = await this.Replace(templateReady, `{{css}}`, css);
+        templateReady = await this.Replace(templateReady, `{{image}}`, image);
 
-        let pdfOptions = { 
-            height: "297mm", 
+        let pdfOptions = {
+            height: "297mm",
             width: "210mm",
-            footer:{
+            footer: {
                 contents: footerReady
             }
         };
 
-        await fs.writeFile("faktura.html", templateReady);
-
         let helper = await htmlpdf.create(templateReady, pdfOptions);
-        let buffer: Buffer = await PdfHelper.ToBuffer(helper);
+        let buffer: Buffer = await this.ToBuffer(helper);
 
-        let mailOptions = {
-            from: '"Pizzeria Penis" <lol@wp.pl>',
-            to: email,
-            subject: subject,
-            text: "sample text",
-            attachments: [
-                {
-                    filename: "faktura.pdf",
-                    content: buffer
-                }
-            ]
-        };
-
-        await PdfHelper.SendMail(mailOptions);
+        if(options.save) await this.SavePdf(buffer, options.pdfFilename);
+        if(options.send) await this.Mail(options, buffer);
     };
-    private static CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
+    private CompileTemplate = function (data: string): Promise<HandlebarsTemplateDelegate> {
         return new Promise<HandlebarsTemplateDelegate>((resolve, reject) => {
-            try{
+            try {
                 resolve(handlebars.compile(data));
             }
-            catch(err){
+            catch (err) {
                 reject(err);
             }
         });
     };
-    private static Merge = function (template: HandlebarsTemplateDelegate, jsondata: JSON): Promise<string> {
+    private Merge = function (template: HandlebarsTemplateDelegate, jsondata: JSON): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            try{
+            try {
                 resolve(template(jsondata));
             }
-            catch(err){
+            catch (err) {
                 reject(err);
             }
         })
     };
-    private static ToBuffer = function (htmldoc: htmlpdf.CreateResult): Promise<Buffer> {
+    private ToBuffer = function (htmldoc: htmlpdf.CreateResult): Promise<Buffer> {
         return new Promise<Buffer>(function (resolve, reject) {
             htmldoc.toBuffer((err, buffer) => {
                 if (err) reject(err);
@@ -119,27 +101,47 @@ export class PdfHelper {
             })
         });
     };
-    private static SendMail = function (options:object):Promise<void>{
-        return new Promise<void>(function(resolve, reject){
-            transporter.sendMail(options, (err, info)=>{
+    private SendMail = function (options: object): Promise<void> {
+        return new Promise<void>(function (resolve, reject) {
+            transporter.sendMail(options, (err, info) => {
                 console.log("Message %s sent %s", info.messageId, info.response);
-                if(err) reject(err);
+                if (err) reject(err);
                 else resolve()
             });
-            
+
         })
     };
-    private static Replace = function(originalTemplate: string, target: string,source: string):Promise<string>{
-        return new Promise<string>((resolve, reject)=>{
-            try{
+    private Replace = function (originalTemplate: string, target: string, source: string): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            try {
                 resolve(originalTemplate.replace(target, source))
             }
-            catch(err){
+            catch (err) {
                 reject(err);
             }
         })
+    };
+    private Mail = async (options:PdfOptions, buffer: Buffer)=>{
+        let mailOptions = {
+            from: '"Pizzeria Penis" <lol@wp.pl>',
+            to: options.email,
+            subject: options.subject,
+            text: options.mailText,
+            attachments: [
+                {
+                    filename: options.pdfFilename,
+                    content: buffer
+                }
+            ]
+        };
+        await this.SendMail(mailOptions);
+    };
+    private SavePdf = async (buffer: Buffer, filename: string)=>{
+        await fs.writeFile(filename, buffer);
     }
-    public CreatePdfHelper = function(options:PdfHelperOptions){
-        return new PdfHelper(options);
-    }
+}
+
+
+export function Create(options: PdfHelperConfig) {
+    return new PdfHelper(options);
 }

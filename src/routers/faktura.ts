@@ -8,12 +8,15 @@ import { StringDecoder } from "string_decoder";
 import { transporter } from "./../mail";
 import * as PdfHelper from "./../helperlib";
 
-let router: express.Router = express.Router();
+let router = express.Router();
 let pdf: PdfHelper.PdfHelper = PdfHelper.Create({});
 let decoder: any = new StringDecoder();
 
-router.get("/", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+router.get("/", (req, res, err) => {
+    res.render("fakturaForm");
+});
 
+router.post("/sent", async (req, res, err) => {
     let content: Buffer = await fs.readFile("./data/faktura.json");
 
     let jsonContent: JSON = JSON.parse(decoder.write(content));
@@ -26,16 +29,8 @@ router.get("/", async (req: express.Request, res: express.Response, next: expres
         send: true,
         subject: "Faktura"
     });
-    next();
+
+    res.send("HI!@#@");
 });
 
-router.get("/", (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.send("HELLO THERE");
-});
-
-router.post("/", (req: express.Request, res: express.Response)=>{
-    console.log(req.body);
-    res.send("response");
-});
-
-export { router };
+export {router};
