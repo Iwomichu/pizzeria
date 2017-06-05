@@ -10,7 +10,7 @@ import {Utilities} from "./../util";
 import * as PdfHelper from "./../pdf";
 
 let router = express.Router();
-let pdf: PdfHelper.PdfHelper = PdfHelper.Create({});
+let pdf: PdfHelper.PdfHelper = PdfHelper.create({});
 let decoder: any = new StringDecoder();
 
 router.get("/", (req, res, err) => {
@@ -19,16 +19,14 @@ router.get("/", (req, res, err) => {
 
 router.post("/sent", async (req, res, err) => {
     let content: Buffer = await fs.readFile("./data/faktura.json");
-    
+    let date = new Date();
     let jsonContent: JSON = JSON.parse(decoder.write(content));
-    pdf.Pdf({
-        email: Utilities.NormalizeMail(req.body.email),
-        jsonData: jsonContent,
-        mailText: "faktura",
+    await pdf.pdf(Utilities.NormalizeMail(req.body.email),jsonContent, {
+        mailText: "Faktura | Pizzeria Penis "+ date.toLocaleDateString(),
         pdfFilename: "faktura.pdf",
         save: (req.body.ispdf == 'on') ? true : false,
         send: (req.body.ismail == 'on') ? true : false,
-        subject: "Faktura"
+        subject: req.body.subject || "Faktura | Pizzeria Penis "+ date.toLocaleDateString()
     });
 
     res.send("HI!@#@");
