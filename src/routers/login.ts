@@ -1,5 +1,5 @@
 import * as express from "express";
-import {DatabaseCommunication} from "./../db"
+import {DatabaseCommunication} from "./../mongodb"
 import {User} from "./../database/models/User"
 
 let router: express.Router = express.Router();

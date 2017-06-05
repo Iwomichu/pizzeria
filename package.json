@@ -40,6 +40,12 @@
   },
   "dependencies": {
     "@types/body-parser": "^1.16.3",
-    "@types/mongodb": "^2.2.2"
+    "@types/mongodb": "^2.2.2",
+    "@types/pg": "^6.1.40",
+    "@types/pg-promise": "^5.4.3",
+    "@types/sqlite3": "^2.2.33",
+    "pg": "^6.2.3",
+    "pg-promise": "^5.8.1",
+    "sqlite3": "^3.1.8"
   }
 }

@@ -1,49 +1,40 @@
-import { MongoClient } from "mongodb";
+import * as sqlite3 from "sqlite3";
 
-export class DatabaseCommunication {
+export class DbCommunication {
+    file: string = "./pizzeria.sql";
+    db: sqlite3.Database;
 
-    public static connect = function(): Promise<DatabaseCommunication>{
-        return new Promise<DatabaseCommunication>(
-            (resolve, reject) => {
-                resolve(MongoClient.connect("mongodb://localhost:27017/pizzeria"));
-            }
-        );
-    }
+
+    // db.all("SELECT * FROM users", function(err :Error, rows :any) {  
+    //        console.log(rows);  
+
+    //  console.log(db);   
+    // });
+    select = (what :Array<string> = ["*"], from: Array<string>): Promise<object> => {
+        return new Promise<object>(
+            (resolve, reject)=>{
+                let querry = "SELECT ";
+                for(let i = 0; i < what.length; i++)querry += (i == what.length-1) ? what[i] + " " : what[i] + ", ";
+                querry += "FROM ";
+                for(let i = 0; i < from.length; i++)querry += (i == from.length-1) ? from[i] + " " : from[i] + ", ";
+                console.log(querry);
+                this.db.all(querry, (err: Error, result: object)=>{
+                    if(err)reject(console.log(err));
+                    resolve(result); 
+                });
+            });
+     }
     
-    public static insertOne = function(db: any, collection: string, document: object, closedb: boolean = true, returnResult: Function  = ()=>{}): Promise<DatabaseCommunication> {
-            return new Promise<DatabaseCommunication>(
-                (resolve, reject) => {
-                    db.collection(collection).insertOne(document, function(err: Error, result: any){
-                        if(err)reject(err);
-                        returnResult(result);//result.ops[0]
-                        resolve(db);
-                        if(closedb){
-                            DatabaseCommunication.dbClose(db);
-                            console.log("Database closed")
-                        }
-                        
-                    });
-                }
-            );
-    }
-    public static findOne = function(db: any, collection: string, document: object, closedb: boolean = true, returnResult: Function  = ()=>{}): Promise<DatabaseCommunication> {
-            return new Promise<DatabaseCommunication>(
-                (resolve, reject) => {
-                    db.collection(collection).findOne(document, function(err: Error, result: any){
-                        if(err)reject(err);
-                        returnResult(result);//result.ops[0]
-                        resolve(db);
-                        if(closedb){
-                            DatabaseCommunication.dbClose(db);
-                            console.log("Database closed")
-                        }
-                        
-                    });
-                }
-            );
+    insert = (tableName: string, record: object | JSON) => {
+            //TODO: konwersja na json, wstawianie do bazy, result
     }
 
-     public static dbClose = function(db: any):void{
-         db.close();
+    close = () => {
+        this.db.close();
+    }
+
+    constructor(source :string = "./pizzeria.sql"){
+        this.file = source;
+        this.db = new sqlite3.Database(this.file);
     }
 }
