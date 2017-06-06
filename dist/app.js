@@ -29,5 +29,5 @@ app.use("/about", about_1.router);
 app.use("/register", register_1.router);
 app.use("/login", login_1.router);
 app.use("/sandbox", sandbox_1.router);
-app.use("/*", errorRequest_1.router);
+app.use("/", errorRequest_1.router);
 module.exports = app;

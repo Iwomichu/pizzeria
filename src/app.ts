@@ -34,6 +34,6 @@ app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/sandbox", sandboxRouter);
 
-app.use("/*", errorRequest);
+app.use("/", errorRequest);
 
 module.exports = app;

@@ -30,10 +30,25 @@ router.get("/mongo/success/:name?/:lastname?", (req:express.Request, res:express
     res.send("Rejestracja udana");
 });
 
- router.post("/",async function(req:express.Request, res:express.Response, next:express.NextFunction){
+ router.post("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
+    console.log(req.body.password,req.body["password-re"]);
+    if(req.body.password != req.body["password-re"])return res.send("Hasła nie są identyczne!");
+    let user = new User(req.body);
+    console.log(user);
+    if(user.id)delete user.id;
     let db = new DbCommunication();
-    var result = await db.select(["*"], ["users"]);
-    console.log(result);
+    (async()=>{
+        var check = await db.select(["login"], ["users"], "WHERE login = \"" + user.login + "\"");
+        if(check[0])return res.send("Login zajęty.");
+
+        var check = await db.select(["email"], ["users"], "WHERE email = \"" + user.email + "\"");
+        if(check[0])return res.send("E-mail zajęty.");
+
+        var result = await db.insert("users", user);
+        if(result)return res.send("Pomyślnie dodano użytkownika.");
+
+        else return res.redirect('/500');
+    })();
     db.close();
 });
 
