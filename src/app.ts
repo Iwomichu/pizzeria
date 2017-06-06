@@ -13,6 +13,7 @@ import {router as aboutRouter} from "./routers/about";
 import {router as registerRouter} from "./routers/register";
 import {router as loginRouter} from "./routers/login";
 import {router as sandboxRouter} from "./routers/sandbox";
+import {router as fakturaRouter} from "./routers/faktura";
 import {router as errorRequest} from "./routers/errorRequest";
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -33,6 +34,7 @@ app.use("/about", aboutRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/sandbox", sandboxRouter);
+app.use("/faktura", fakturaRouter);
 
 app.use("/", errorRequest);
 
