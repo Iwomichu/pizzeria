@@ -7,7 +7,7 @@ import * as nodemailer from "nodemailer";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./../mail";
 import {Utilities} from "./../util";
-import {Faktura} from "./../pdf";
+import {Faktura} from "./../fakturaData";
 import * as PdfHelper from "./../pdf";
 
 let router = express.Router();
