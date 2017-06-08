@@ -5,4 +5,4 @@ public/
 .idea/
 npm-debug.log
 npm-debug.log.*
-faktura.pdf
+/faktura.pdf
