@@ -6,6 +6,7 @@ import * as path from "path";
 
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./mail";
+import { Utilities } from "./util";
 
 export interface PdfHelperConfig {
     mainTemplateFilename?: string;
@@ -24,6 +25,74 @@ export interface PdfOptions {
     save: boolean;
 }
 
+interface Info {
+    miejsce: string,
+    dataWys: string,
+    dataSpr: string,
+    zaplata: string,
+    termin: string
+}
+
+interface Side {
+    nazwa: string,
+    adres: string,
+    zip: string,
+    nip: string,
+    nrkonta: string
+}
+
+export class Faktura {
+    filename: string;
+    podpis: string;
+    str: number;
+    nr: string;
+    info: Info;
+    sprzedawca: Side;
+    nabywca: Side;
+    przedmioty: Przedmiot[];
+}
+
+class FakturaExtended extends Faktura {
+    constructor(orig: Faktura) {
+        super();
+        this.extend(orig);
+    }
+    extend(orig: Faktura) {
+        this.filename = orig.filename;
+        this.podpis = orig.podpis;
+        this.str = orig.str;
+        this.nr = orig.nr;
+        this.info = orig.info;
+        this.sprzedawca = orig.sprzedawca;
+        this.nabywca = orig.nabywca;
+        this.przedmioty = orig.przedmioty;
+        this.sumowanie();
+    }
+    slownie: string;
+    sumaString: string;
+
+    public sumowanie() {
+        let sum: number = 0;
+        for (let item of this.przedmioty) {
+            sum += item.ilosc * (item.cenajedn * (item.vat / 100) + item.cenajedn);
+        }
+        this.sumaString = sum.toFixed(2) + " zl";
+        this.slownie = Utilities.kwotaSlownie(Math.floor(sum)) + "zl " + (multiplyByTen(sum,2)%100) + "/100";
+        console.log(this.slownie);
+        
+    }
+}
+
+interface Przedmiot {
+    nr: number,
+    nazwa: string,
+    symbol: string,
+    jm: string,
+    ilosc: number,
+    cenajedn: number,
+    vat: number
+}
+
 export class PdfHelper {
     mainTemplateFilename: string;
     headerTemplateFilename: string;
@@ -38,20 +107,24 @@ export class PdfHelper {
         this.logoFilename = config.logoFilename || "../views/faktura/logo.jpg";
         this.cssFilename = config.cssFilename || "../views/faktura/pdf-style.css";
     };
-    public async pdf(email: string, jsonData: JSON,options: PdfOptions) {
+    public async pdf(email: string, jsonData: Faktura, options: PdfOptions) {
         let stage = "read";
+        let newData = new FakturaExtended(jsonData);
         try {
+
+
+
             let data: string = await fs.readFile(path.join(".", "views", "faktura", this.mainTemplateFilename), "utf-8");
             let template = await this.compileTemplate(data);
-            let templateReady = await this.merge(template, jsonData);
+            let templateReady = await this.merge(template, newData);
 
             let header = await fs.readFile(path.join(".", "views", "faktura", this.headerTemplateFilename), "utf-8");
             let headerRaw = await this.compileTemplate(header);
-            let headerReady = await this.merge(headerRaw, jsonData);
+            let headerReady = await this.merge(headerRaw, newData);
 
             let footer = await fs.readFile(path.join(".", "views", "faktura", this.footerTemplateFilename), "utf-8");
             let footerRaw = await this.compileTemplate(footer);
-            let footerReady = await this.merge(footerRaw, jsonData);
+            let footerReady = await this.merge(footerRaw, newData);
 
             console.log("Read stage complete");
             stage = "convert";
@@ -95,7 +168,7 @@ export class PdfHelper {
             }
         });
     };
-    private merge(template: HandlebarsTemplateDelegate, jsondata: JSON): Promise<string> {
+    private merge(template: HandlebarsTemplateDelegate, jsondata: Faktura): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             try {
                 resolve(template(jsondata));
@@ -134,7 +207,7 @@ export class PdfHelper {
             }
         })
     };
-    private async mail(email: string,options: PdfOptions, buffer: Buffer){
+    private async mail(email: string, options: PdfOptions, buffer: Buffer) {
         let mailOptions = {
             from: '"Pizzeria Penis" <lol@wp.pl>',
             to: email,
@@ -149,11 +222,33 @@ export class PdfHelper {
         };
         await this.sendMail(mailOptions);
     };
-    private async savePdf(buffer: Buffer, filename: string){
+    private async savePdf(buffer: Buffer, filename: string) {
         await fs.writeFile(filename, buffer);
     }
 }
 
+function multiplyByTen(liczba: number, pow:number):number{
+    let result: number;
+    let decimals = 0;
+    let isdecimal = false;
+    let helper: string = liczba.toPrecision();
+    let helper2: string = "";
+    for(let i = 0; i < helper.length; i++){
+        if(helper[i]=="."){
+            isdecimal = true;
+            continue;
+        }
+        if(isdecimal){
+            decimals++;
+        }
+        helper2+=helper[i];
+    }
+    for(let i = 0; i < decimals; i++){
+        helper2+="0";
+    }
+    result = parseFloat(helper2);
+    return result;
+}
 
 export function create(options: PdfHelperConfig) {
     return new PdfHelper(options);
