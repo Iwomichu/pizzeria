@@ -68,9 +68,3 @@ export class DbCommunication {
         this.db = new sqlite3.Database(this.file);
     }
 }
-
-export interface where{
-    left: string;
-    right: string;
-    
-}
