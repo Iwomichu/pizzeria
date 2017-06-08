@@ -4,23 +4,23 @@
     <title>Faktura</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="\{{css}}" />
+    <style type="text/css">
+        @font-face{
+            font-family: "Lora";
+            src: local("Lora"), url("\{{font}}");
+        }
+        body{
+            font-family: "Lora"
+        }
+        .use-font{
+            font-family: "Lora"
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <h4>Przykładowa faktura</h4>
-        <!--<div class="row">
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-        </div> -->
         <div class="row part">
             <div class="col col-3">
                 <img src="\{{image}}" />
