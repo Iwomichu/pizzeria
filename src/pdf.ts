@@ -39,7 +39,7 @@ export class PdfHelper {
         this.mainTemplateFilename = config.mainTemplateFilename || "sandbox.handlebars";
         this.headerTemplateFilename = config.headerTemplateFilename || "header.handlebars";
         this.footerTemplateFilename = config.footerTemplateFilename || "footer.handlebars";
-        this.logoFilename = config.logoFilename || "../views/faktura/logo.jpg";
+        this.logoFilename = config.logoFilename || "../views/faktura/logo.png";
         this.cssFilename = config.cssFilename || "../views/faktura/pdf-style.css";
         this.fontFilename = config.fontFilename || "../views/faktura/Lora-Regular.otf"
     };
@@ -70,6 +70,7 @@ export class PdfHelper {
 
             templateReady = await this.replace(templateReady, `{{css}}`, css);
             templateReady = await this.replace(templateReady, `{{image}}`, image);
+            footerReady = await this.replace(footerReady, `{{image}}`, image);
             templateReady = await this.replace(templateReady, `{{font}}`, font);
 
             let pdfOptions = {
