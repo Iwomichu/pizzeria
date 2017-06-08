@@ -7,6 +7,7 @@ import * as nodemailer from "nodemailer";
 import { StringDecoder } from "string_decoder";
 import { transporter } from "./../mail";
 import {Utilities} from "./../util";
+import {Faktura} from "./../pdf";
 import * as PdfHelper from "./../pdf";
 
 let router = express.Router();
@@ -20,7 +21,7 @@ router.get("/", (req, res, err) => {
 router.post("/sent", async (req, res, err) => {
     let content: Buffer = await fs.readFile("./data/faktura.json");
     let date = new Date();
-    let jsonContent: JSON = JSON.parse(decoder.write(content));
+    let jsonContent: Faktura = JSON.parse(decoder.write(content));
     await pdf.pdf(Utilities.NormalizeMail(req.body.email),jsonContent, {
         mailText: "Faktura | Pizzeria Penis "+ date.toLocaleDateString(),
         pdfFilename: "faktura.pdf",
