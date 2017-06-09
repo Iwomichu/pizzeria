@@ -4,23 +4,31 @@
     <title>Faktura</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="\{{css}}" />
+    <style type="text/css">
+        @font-face{
+            font-family: "Lora";
+            src: local("Lora"), url("\{{font}}");
+        }
+        @font-face{
+            font-family: "JustBreathe";
+            src: local("Just Breathe"), url("\{{font}}");
+        }
+        @font-face{
+            font-family: "Lato";
+            src: local("Lato Regular"), url("\{{font}}");
+        }
+        body{
+            font-family: "Lato"
+        }
+        .use-font{
+            font-family: "Lato"
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <h4>Przykładowa faktura</h4>
-        <!--<div class="row">
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-            <div class="col col-1 red"></div>
-            <div class="col col-1 blue"></div>
-        </div> -->
         <div class="row part">
             <div class="col col-3">
                 <img src="\{{image}}" />
@@ -65,14 +73,15 @@
             <div class="col-clear"></div>
         </div>
         <div class="row info">
-            <div class="col col-4">Sprzedawca</div>
+            <div class="col col-4"><strong>Sprzedawca</strong></div>
             <div class="col col-2"></div>
-            <div class="col col-4">Nabywca</div>
+            <div class="col col-4"><strong>Nabywca</strong></div>
             <div class="col-clear"></div>
         </div>
         <div class="row info part">
             <div class="col col-4">
-                <p>{{sprzedawca.nazwa}} </p>
+                <p><strong>{{sprzedawca.nazwa}} </strong></p>
+                <br>
                 <p>{{sprzedawca.adres}}</p>
                 <p>{{sprzedawca.zip}}</p>
                 <p>{{sprzedawca.nip}}</p>
@@ -80,7 +89,8 @@
             </div>
             <div class="col col-2"> </div>
             <div class="col col-4">
-                <p>{{nabywca.nazwa}} </p>
+                <p><strong>{{nabywca.nazwa}} </strong></p>
+                <br>
                 <p>{{nabywca.adres}}</p>
                 <p>{{nabywca.zip}}</p>
                 <p>{{nabywca.nip}}</p>
@@ -121,10 +131,10 @@
         <div class="row">
             <div class="col col-4">
                 <div class="row">
-                    Razem do zapłaty: {{sumaString}}
+                    <strong>Razem do zapłaty: {{sumaString}} </strong>
                 </div>
                 <div class="row">
-                    Słownie: {{slownie}}
+                    <strong>Słownie: {{slownie}} </strong>
                 </div>
             </div>
         </div>

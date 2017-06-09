@@ -15,6 +15,7 @@ export interface PdfHelperConfig {
     footerTemplateFilename?: string;
     logoFilename?: string;
     cssFilename?: string;
+    fontFilename?: string;
 }
 
 export interface PdfOptions {
@@ -32,13 +33,15 @@ export class PdfHelper {
     footerTemplateFilename: string;
     logoFilename: string;
     cssFilename: string;
+    fontFilename: string;
 
     constructor(config: PdfHelperConfig) {
         this.mainTemplateFilename = config.mainTemplateFilename || "sandbox.handlebars";
         this.headerTemplateFilename = config.headerTemplateFilename || "header.handlebars";
         this.footerTemplateFilename = config.footerTemplateFilename || "footer.handlebars";
-        this.logoFilename = config.logoFilename || "../views/faktura/logo.jpg";
+        this.logoFilename = config.logoFilename || "../views/faktura/logo.png";
         this.cssFilename = config.cssFilename || "../views/faktura/pdf-style.css";
+        this.fontFilename = config.fontFilename || "../views/faktura/Lora-Regular.otf"
     };
     public async pdf(email: string, jsonData: Faktura, options: PdfOptions) {
         let stage = "read";
@@ -63,9 +66,12 @@ export class PdfHelper {
             stage = "convert";
             let css = path.join(`file://`, __dirname, this.cssFilename);
             let image = path.join(`file://`, __dirname, this.logoFilename);
+            let font = path.join(`file://`, __dirname, this.fontFilename);
 
             templateReady = await this.replace(templateReady, `{{css}}`, css);
             templateReady = await this.replace(templateReady, `{{image}}`, image);
+            footerReady = await this.replace(footerReady, `{{image}}`, image);
+            templateReady = await this.replace(templateReady, `{{font}}`, font);
 
             let pdfOptions = {
                 height: "297mm",
@@ -74,7 +80,7 @@ export class PdfHelper {
                     contents: footerReady
                 }
             };
-
+            console.log(templateReady);
             let helper = await htmlpdf.create(templateReady, pdfOptions);
             let buffer: Buffer = await this.toBuffer(helper);
 

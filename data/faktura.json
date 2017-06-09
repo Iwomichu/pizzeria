@@ -13,14 +13,14 @@
     "sprzedawca":{
         "nazwa": "Witkac sp. z o.o.",
         "adres": "ul. Żeromskiego 11/6",
-        "zip": "76-200 Słipsk",
+        "zip": "76-200 Słupsk",
         "nip": "839-31-72-913",
         "nrkonta": "42 1140 2004 0000 3502 7477 8440"
     },
     "nabywca":{
         "nazwa": "Gmina i Miasto Czerwionka-Leszczyny",
         "adres": "ul. Żeromskiego 11/6",
-        "zip": "76-200 Słipsk",
+        "zip": "76-200 Słupsk",
         "nip": "839-31-72-913"
     },
     "przedmioty":[
