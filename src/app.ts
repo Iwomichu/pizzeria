@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as path from "path";
 
 const handlebars = require("express-handlebars");
 const hbs = require("hbs");
@@ -21,11 +22,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
+app.use('/static',express.static(__dirname+'/../bower_components/'));
+app.use('/icons',express.static(__dirname+'/../views/icons/'));
+//app.use('/register/static/',express.static(__dirname+'/../bower_components/'));
 app.engine("handlebars", handlebars({defaultLayout:"layout"}))
 app.set("view engine", "handlebars");
 hbs.registerPartials(__dirname+"/../views/partials");
-app.use(express.static("public"));
-app.use(express.static("bower_components"));
 
 app.use("/", indexRouter);
 app.use("/products", productsRouter);

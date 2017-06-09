@@ -18,11 +18,12 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use('/static', express.static(__dirname + '/../bower_components/'));
+app.use('/icons', express.static(__dirname + '/../views/icons/'));
+//app.use('/register/static/',express.static(__dirname+'/../bower_components/'));
 app.engine("handlebars", handlebars({ defaultLayout: "layout" }));
 app.set("view engine", "handlebars");
 hbs.registerPartials(__dirname + "/../views/partials");
-app.use(express.static("public"));
-app.use(express.static("bower_components"));
 app.use("/", index_1.indexRouter);
 app.use("/products", products_1.router);
 app.use("/contact", contact_1.router);

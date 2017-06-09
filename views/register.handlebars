@@ -9,24 +9,28 @@
                     <input class="form-control" type="text" id="login"  name="login" required />
                 </div>
             </div>
+            {{#if user.login}}<div class="alert alert-danger" role="alert">{{user.login}}</div>{{/if}}
             <div class="form-group">
                 <label for="password" class="col-md-4 control-label">Hasło</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="password"  name="password" required />
                 </div>
             </div>
+            {{#if user.password}}<div class="alert alert-danger" role="alert">{{user.password}}</div>{{/if}}
             <div class="form-group">
                 <label for="password-re" class="col-md-4 control-label">Powtórz hasło</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="password-re" name="password-re" required />
                 </div>
             </div>
+            {{#if user.passwordRe}}<div class="alert alert-danger" role="alert">{{user.passwordRe}}</div>{{/if}}            
             <div class="form-group">
                 <label for="email" class="col-md-4 control-label">Adres e-mail</label>
                 <div class="col-md-8">
                     <input class="form-control" type="email" id="email"  name="email" required/>
                 </div>
             </div>
+            {{#if user.email}}<div class="alert alert-danger" role="alert">{{user.email}}</div>{{/if}}
             <hr>
             <h4>Informacje dodatkowe</h4>
             <hr>
@@ -36,42 +40,49 @@
                     <input class="form-control" type="text" id="name"  name="name" />
                 </div>
             </div>
+            {{#if user.name}}<div class="alert alert-danger" role="alert">{{user.name}}</div>{{/if}}
             <div class="form-group">
                 <label for="lastname" class="col-md-4 control-label">Nazwisko</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="lastname"  name="lastname" />
                 </div>
             </div>
+            {{#if user.lastname}}<div class="alert alert-danger" role="alert">{{user.lastname}}</div>{{/if}}
             <div class="form-group">
                 <label for="city" class="col-md-4 control-label">Miejsce zamieszkania</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="city"  name="city" />
                 </div>
             </div>
+            {{#if user.city}}<div class="alert alert-danger" role="alert">{{user.city}}</div>{{/if}}
             <div class="form-group">
                 <label for="street" class="col-md-4 control-label">Ulica</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="street"  name="street" />
                 </div>
             </div>
+            {{#if user.street}}<div class="alert alert-danger" role="alert">{{user.street}}</div>{{/if}}
             <div class="form-group">
                 <label for="address" class="col-md-4 control-label">Numer budynku</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="address"  name="address" />
                 </div>
             </div>
+            {{#if user.address}}<div class="alert alert-danger" role="alert">{{user.address}}</div>{{/if}}
             <div class="form-group">
                 <label for="flat" class="col-md-4 control-label">Numer mieszkania</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" id="flat"  name="flat" />
                 </div>
             </div>
+            {{#if user.flat}}<div class="alert alert-danger" role="alert">{{user.flat}}</div>{{/if}}
             <div class="form-group">
                 <label for="phone" class="col-md-4 control-label">Numer telefonu</label>
                 <div class="col-md-8">
                     <input class="form-control" type="tel" id="phone"  name="phone" />
                 </div>
             </div>
+            {{#if user.phone}}<div class="alert alert-danger" role="alert">{{user.phone}}</div>{{/if}}
             <div class="form-group">
                 <input class="btn btn-primary btn-lg center-block" type="submit" />
             </div>
