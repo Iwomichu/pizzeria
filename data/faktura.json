@@ -32,33 +32,6 @@
             "ilosc": 1,
             "cenajedn": 570,
             "vat": 23
-        },
-        {
-            "nr": 1,
-            "nazwa": "Szkolenie z zakresu korzystania z systemu witkac.pl zgodnie z umową RGiM/P30/2",
-            "symbol": "80.59B",
-            "jm": "usługa",
-            "ilosc": 1,
-            "cenajedn": 570,
-            "vat": 23
-        },
-        {
-            "nr": 1,
-            "nazwa": "Szkolenie z zakresu korzystania z systemu witkac.pl zgodnie z umową RGiM/P30/2",
-            "symbol": "80.59B",
-            "jm": "usługa",
-            "ilosc": 1,
-            "cenajedn": 570,
-            "vat": 23
-        },
-        {
-            "nr": 1,
-            "nazwa": "Szkolenie z zakresu korzystania z systemu witkac.pl zgodnie z umową RGiM/P30/2",
-            "symbol": "80.59B",
-            "jm": "usługa",
-            "ilosc": 3,
-            "cenajedn": 2100,
-            "vat": 23
         }
     ]
 }

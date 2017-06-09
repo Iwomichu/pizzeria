@@ -127,14 +127,36 @@
                 {{/each}}
             </table>
         </div>
-        <div class="row"></div>
+        <div class="row">
+            <div class="col col-5"></div>
+            <div class="col col-1">Razem</div>
+            <div class="col col-4">
+                <table>
+                    <tr>
+                        <td>{{nettoString}}</td>
+                        <td>x</td>
+                        <td>{{vatString}}</td>
+                        <td>{{sumaString}}</td>
+                    </tr>
+                    {{#each podatki}}
+                    <tr>
+                        <td>{{netto}}</td>
+                        <td>{{vat}}</td>
+                        <td>{{kwotaVat}}</td>
+                        <td>{{brutto}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+        <div class="space"></div>
         <div class="row">
             <div class="col col-4">
                 <div class="row">
-                    <strong>Razem do zapłaty: {{sumaString}} </strong>
+                    <strong>Razem do zapłaty: {{sumaString}} zl</strong>
                 </div>
                 <div class="row">
-                    <strong>Słownie: {{slownie}} </strong>
+                    <strong>Słownie: {{slownie}}</strong>
                 </div>
             </div>
         </div>

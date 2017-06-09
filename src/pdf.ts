@@ -80,7 +80,6 @@ export class PdfHelper {
                     contents: footerReady
                 }
             };
-            console.log(templateReady);
             let helper = await htmlpdf.create(templateReady, pdfOptions);
             let buffer: Buffer = await this.toBuffer(helper);
 
