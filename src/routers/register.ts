@@ -1,4 +1,4 @@
-import * as express from "express";
+import * as express from "express"
 import {DatabaseCommunication} from "./../mongodb"
 import {DbCommunication} from "./../db"
 import * as sqlite3 from "sqlite3"
@@ -31,10 +31,13 @@ router.get("/mongo/success/:name?/:lastname?", (req:express.Request, res:express
 });
 
  router.post("/", (req:express.Request, res:express.Response, next:express.NextFunction)=>{
-    console.log(req.body.password,req.body["password-re"]);
-    if(req.body.password != req.body["password-re"])return res.send("Hasła nie są identyczne!");
+    //if(req.body.password != req.body["password-re"])return res.send("Hasła nie są identyczne!");
+
     let user = new User(req.body);
-    console.log(user);
+    if(!(user.login && user.password && user.email)){
+        console.log("Some problem with validation", user)
+        return res.render("register", {user: user});
+    }
     if(user.id)delete user.id;
     let db = new DbCommunication();
     (async()=>{
